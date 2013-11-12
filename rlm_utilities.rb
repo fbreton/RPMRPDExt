@@ -45,6 +45,10 @@ module RlmUtilities
         get_all_items_list(rlm_base_url, rlm_username, rlm_password, "bridge list")
     end
 
+    def get_all_env_properties(rlm_base_url, rlm_username, rlm_password, environment)
+        get_all_items_list(rlm_base_url, rlm_username, rlm_password, "environment property list", environment)
+    end
+
     def get_channel_by_env(rlm_base_url, rlm_username, rlm_password, environment) 
       raise "Error: An environment name has to be provided" if environment.blank?
 
@@ -447,9 +451,18 @@ module RlmUtilities
 
     def add_channel_to_env(rlm_base_url, rlm_username, rlm_password, environment, channel)
       raise "No valid environment name" if environment.blank?
+      raise "No valid channel name" if channel.blank?
+
 	  return set_method(rlm_base_url, rlm_username, rlm_password, "environment channel add",[environment, channel])
     end
 
+    def add_property_to_env(rlm_base_url, rlm_username, rlm_password, environment, property, value)
+      raise "No valid environment name" if environment.blank?
+      raise "No valid property name" if property.blank?
+
+      return set_method(rlm_base_url, rlm_username, rlm_password, "environment property add",[environment, property, value])
+    end
+	
     def delete_bridge(rlm_base_url, rlm_username, rlm_password, bridge)
       raise "No valid bridge name provided" if bridge.blank?
       return set_method(rlm_base_url, rlm_username, rlm_password, "bridge delete", [bridge])

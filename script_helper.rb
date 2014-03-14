@@ -38,13 +38,11 @@ def encrypt(val)
 end  
 
 def sub_tokens(script_params,var_string)
-  write_to("Entered sub_tokens:" + var_string)
   prop_val = var_string.match('rpm{[^{}]*}')
   while ! prop_val.nil? do
     var_string = var_string.sub(prop_val[0],script_params[prop_val[0][4..-2]])
     prop_val = var_string.match('rpm{[^{}]*}')
   end
-  write_to("returning: " + var_string)
   return var_string
 end
 
